@@ -15,10 +15,10 @@ class MyPlugin(Star):
         self.task = None  # 用于存储定时任务
         
         # 从配置获取参数，如果配置为空则使用默认值
-        self.target_group = str(self.config.get("target_group", "698873907"))
+        self.target_group = str(self.config.get("target_group", "1234567"))
         self.server_name = self.config.get("server_name", "我的Minecraft服务器")
-        self.server_ip = self.config.get("server_ip", "play.simpfun.cn")
-        self.server_port = self.config.get("server_port", 28490)
+        self.server_ip = self.config.get("server_ip", "play.happy")
+        self.server_port = self.config.get("server_port", 12345)
         self.check_interval = self.config.get("check_interval", 10)
         self.enable_auto_monitor = self.config.get("enable_auto_monitor", False)
         
@@ -366,4 +366,5 @@ class MyPlugin(Star):
         # 停止定时任务
         if self.task and not self.task.done():
             self.task.cancel()
+
             logger.info("定时发送任务已停止")
