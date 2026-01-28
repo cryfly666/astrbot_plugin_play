@@ -29,7 +29,10 @@ class MyPlugin(Star):
         self.server_name = self.config.get("server_name", "Minecraft服务器")
         self.server_ip = self.config.get("server_ip")
         self.server_port = self.config.get("server_port")
-        self.server_type = self.config.get("server_type", "be")  # 添加服务器类型配置，默认为基岩版(be)
+        self.server_type = self.config.get("server_type", "be")
+        if isinstance(self.server_type, str):
+            self.server_type = self.server_type.lower()
+        
         self.check_interval = self.config.get("check_interval", 10)
         self.enable_auto_monitor = self.config.get("enable_auto_monitor", False)
         
