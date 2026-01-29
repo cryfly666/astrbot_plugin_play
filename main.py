@@ -222,24 +222,23 @@ class MyPlugin(Star):
     def _format_msg(self, data):
         if not data:
             return "❌ 无法连接到服务器"
-        
-        status_emoji = {"online": "🟢", "starting": "🟡", "offline": "🔴"}
-        emoji = status_emoji.get(data['status'], "🔴")
             
-        msg = [f"{emoji} {data['name']}"]
+        msg = [f"服务器: {data['name']}"]
         
         if data.get('motd'):
-            msg.append(f"📝 {data['motd']}")
+            msg.append(f"📝 MOTD: {data['motd']}")
             
-        msg.append(f"🎮 {data['version']}")
-        msg.append(f"👥 在线: {data['online']}/{data['max']}")
+        msg.append(f"🎮 版本: {data['version']}")
+        msg.append(f"👥 在线玩家: {data['online']}")
         
         if data.get('player_names'):
             names = data['player_names']
             p_str = ", ".join(names[:10])
             if len(names) > 10:
                 p_str += f" 等{len(names)}人"
-            msg.append(f"📋 列表: {p_str}")
+            msg.append(f" 玩家列表: {p_str}")
+        else:
+            msg.append(" 玩家列表")
             
         return "\n".join(msg)
 
