@@ -1,4 +1,5 @@
 from astrbot.api.event import filter, AstrMessageEvent
+from astrbot.api.event.filter import PlatformAdapterType
 from astrbot.api.star import Context, Star, register
 from astrbot.api import logger, AstrBotConfig
 from astrbot.core.message.components import Plain
@@ -333,19 +334,30 @@ class MyPlugin(Star):
                 await asyncio.sleep(5)
 
     async def send_group_msg(self, text):
+        """
+        主动发送消息到指定 QQ 群
+        :param text: 要发送的消息内容
+        """
         if not self.target_group:
             logger.warning("消息发送失败: target_group 未配置")
             return
         try:
-            # Use modern AstrBot API to send messages
-            # Construct a message session for the target group
-            # Format: "platform_id:message_type:session_id"
-            # For group messages: "aiocqhttp:GroupMessage:<group_id>"
-            session = f"aiocqhttp:GroupMessage:{self.target_group}"
-            message_chain = MessageChain()
-            message_chain.chain.append(Plain(text=text))
+            # 从插件上下文中获取 AIOCQHTTP (OneBot) 平台适配器
+            platform = self.context.get_platform(PlatformAdapterType.AIOCQHTTP)
+            
+            if not platform:
+                logger.error("未找到 AIOCQHTTP 平台适配器，无法发送消息")
+                return
+
+            # 获取底层的 API 客户端
+            client = platform.get_client()
+            
+            # 调用标准的 OneBot v11 API: send_group_msg
             logger.info(f"正在发送消息到群 {self.target_group}")
-            await self.context.send(session, message_chain)
+            await client.api.call_action('send_group_msg', **{
+                'group_id': int(self.target_group),
+                'message': text
+            })
             logger.info(f"✅ 消息已发送到群 {self.target_group}")
         except Exception as e:
             logger.error(f"❌ 消息发送失败到群 {self.target_group}: {type(e).__name__}: {e}")
