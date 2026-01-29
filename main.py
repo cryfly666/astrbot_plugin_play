@@ -310,9 +310,9 @@ class MyPlugin(Star):
         try:
             # Use modern AstrBot API to send messages
             # Construct a message session for the target group
-            # Format: "platform_name|type|group_id|user_id"
-            # For group messages on aiocqhttp: "aiocqhttp|group|<group_id>|<group_id>"
-            session = f"aiocqhttp|group|{self.target_group}|{self.target_group}"
+            # Format: "platform_id:message_type:session_id"
+            # For group messages: "aiocqhttp:GroupMessage:<group_id>"
+            session = f"aiocqhttp:GroupMessage:{self.target_group}"
             message_chain = MessageChain()
             message_chain.chain.append(Plain(text=text))
             await self.context.send_message(session, message_chain)
