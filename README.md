@@ -1,7 +1,7 @@
 # Minecraft服务器监控插件
 
 这是一个基于AstrBot框架开发的Minecraft服务器监控插件，可以定时检测服务器状态变化并发送通知。  
-作者使用的简幻欢服务器不支持建站，因此使用AI制作了此工具，通过api工具查看服务器状态。  
+作者使用的简幻欢服务器不支持建站，因此使用AI制作了此工具。  
 ！！大部分代码都由ai完成！！我自己本人基本够用了，所以即使存在很多问题也并没有去修正，如果对你有帮助的话我感到很荣幸，也很感谢各位对该工具的修正！  
 作者的qq：1002887282  
 **只适配java版！如果需要基岩版请前往：https://github.com/cryfly666/astrbot_plugin_apimcmc**  
@@ -26,7 +26,7 @@
 | `target_group` | QQ群号 | 字符串/数字 | 无 | ✅ |
 | `server_name` | 服务器名称 | 字符串 | "Minecraft服务器" | ❌ |
 | `server_ip` | 服务器IP地址 | 字符串 | 无 | ✅ |
-| `server_port` | 服务器端口 | 数字 | 25565 | ❌ |
+| `server_port` | 服务器端口 | 数字 | 25565 | ✅ |
 | `check_interval` | 监控检查间隔（秒） | 数字 | 10 | ❌ |
 | `enable_auto_monitor` | 插件加载时自动启动监控 | 布尔值 | false | ❌ |
 
@@ -167,6 +167,7 @@ A: 当前版本仅支持Java版服务器。基岩版使用不同的协议，支�
 
 **Q: 报错 "Connection refused"？**  
 A: 请检查 `server_ip` 和 `server_port` 是否正确，并确保服务器防火墙放行了对应端口。
+
 
 
 
