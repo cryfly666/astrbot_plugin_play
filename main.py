@@ -1,7 +1,7 @@
 from astrbot.api.event import filter, AstrMessageEvent
+from astrbot.api.event.filter import PlatformAdapterType
 from astrbot.api.star import Context, Star, register
 from astrbot.api import logger, AstrBotConfig
-from astrbot.api.platform import PlatformAdapterType
 import asyncio
 import aiohttp
 import json
