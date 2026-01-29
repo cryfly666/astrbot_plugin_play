@@ -106,7 +106,7 @@ class MyPlugin(Star):
         """使用Minecraft Server List Ping协议直接查询服务器"""
         try:
             reader, writer = await asyncio.wait_for(
-                asyncio.open_connection(host, port), timeout=5.0
+                asyncio.open_connection(host, port), timeout=10.0
             )
         except Exception as e:
             logger.debug(f"无法连接到服务器 {host}:{port} - {e}")
@@ -145,7 +145,7 @@ class MyPlugin(Star):
                     return json.loads(decoded_data)
                 return None
 
-            return await asyncio.wait_for(read_response(), timeout=5.0)
+            return await asyncio.wait_for(read_response(), timeout=10.0)
 
         except Exception as e:
             logger.warning(f"服务器Ping失败: {e}")
@@ -369,4 +369,5 @@ class MyPlugin(Star):
                 await self.task
             except asyncio.CancelledError:
                 pass
+
 
